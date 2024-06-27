@@ -66,6 +66,16 @@ function setTimerOnStartBtn() {
 
   const intervalId = setInterval(() => {
     const leftDurationMs = userSelectedDate - Date.now();
+
+    if (leftDurationMs <= 0) {
+      clearInterval(intervalId);
+      refs.timeInput.disabled = false;
+      refs.startTimerBtn.disabled = false;
+      // Переконайтеся, що стан кнопки і поля вводу відновлюються, коли таймер закінчить відлік
+      // інші очисні операції, якщо це необхідно
+      return;
+    }
+
     const leftTime = convertMs(leftDurationMs);
     refs.daysElem.textContent = addLeadingZero(leftTime.days);
     refs.hoursElem.textContent = addLeadingZero(leftTime.hours);
